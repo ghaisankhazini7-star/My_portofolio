@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Motion Design — Ghaisan Khazini</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23090909'/><text y='.9em' font-size='80' font-family='Space Grotesk,sans-serif' font-weight='700' fill='%23f0f0f0'>G</text></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#090909;--ink:#111;--line:#1e1e1e;--muted:#2a2a2a;
+  --sub:#555;--dim:#777;--body:#999;--text:#ccc;--white:#f0f0f0;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+body{background:var(--bg);color:var(--body);font-family:'Space Grotesk',sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;animation:pageIn .5s var(--ease) both}
+#page-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;opacity:0;pointer-events:none;transition:opacity .45s var(--ease)}
+
+/* CURSOR */
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(9,9,9,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1100px;margin:0 auto;padding:0 48px;height:62px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:18px;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:-.4px}
+.back-btn{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sub);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:color .2s}
+.back-btn:hover{color:var(--text)}
+.back-btn svg{transition:transform .3s var(--ease)}
+.back-btn:hover svg{transform:translateX(-4px)}
+
+/* HERO */
+.proj-hero{padding-top:62px;border-bottom:1px solid var(--line);min-height:55vh;display:flex;align-items:flex-end}
+.proj-hero-in{max-width:1100px;margin:0 auto;width:100%;padding:64px 48px;animation:up .7s .1s both}
+.proj-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sub);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
+.proj-h1{font-size:clamp(48px,7vw,90px);font-weight:700;letter-spacing:-3px;line-height:.92;color:var(--white);margin-bottom:32px}
+.proj-meta{display:flex;gap:48px;flex-wrap:wrap}
+.proj-meta-item{}
+.proj-meta-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.proj-meta-val{font-size:14px;color:var(--text)}
+.proj-tags{display:flex;gap:8px;flex-wrap:wrap}
+.proj-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);padding:4px 12px;border-radius:2px}
+
+/* CONTENT */
+.proj-content{max-width:1100px;margin:0 auto;padding:0 48px}
+
+/* preview area */
+.preview-area{padding:80px 0;border-bottom:1px solid var(--line)}
+.preview-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:32px}
+
+/* placeholder box — ganti dengan embed Lottie / video / iframe kamu */
+.preview-box{
+  width:100%;aspect-ratio:16/9;
+  background:var(--ink);border:1px solid var(--line);border-radius:4px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  color:var(--muted);position:relative;overflow:hidden;
+}
+.preview-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(255,255,255,.02),transparent)}
+.preview-icon{width:56px;height:56px;border:1px solid var(--muted);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--dim)}
+.preview-txt{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--sub);text-align:center;line-height:1.8}
+
+/* animation items grid */
+.anim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-top:32px}
+.anim-item{background:var(--bg);aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;transition:background .3s;}
+.anim-item:hover{background:var(--ink)}
+.anim-item-icon{width:48px;height:48px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim);transition:border-color .3s,color .3s}
+.anim-item:hover .anim-item-icon{border-color:var(--sub);color:var(--text)}
+.anim-item-name{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.07em;text-transform:uppercase}
+
+/* description */
+.desc-section{padding:80px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.desc-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px}
+.desc-h2{font-size:clamp(28px,3.5vw,42px);font-weight:700;color:var(--white);letter-spacing:-1.5px;line-height:1.05;margin-bottom:24px}
+.desc-p{font-size:15px;color:var(--dim);line-height:1.85}
+.desc-p+.desc-p{margin-top:14px}
+.desc-p strong{color:var(--body);font-weight:500}
+.tool-list{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.tool-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.tool-row:first-child{border-top:1px solid var(--line)}
+.tool-icon{width:32px;height:32px;border:1px solid var(--line);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--muted);flex-shrink:0}
+.tool-name{font-size:14px;color:var(--text);font-weight:500}
+.tool-desc{font-size:12px;color:var(--sub);margin-top:2px}
+
+/* nav bottom */
+.proj-nav{padding:64px 0;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.proj-nav-link{text-decoration:none;display:flex;flex-direction:column;gap:6px}
+.proj-nav-link.right{align-items:flex-end}
+.pnl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.pnt{font-size:20px;font-weight:700;color:var(--white);letter-spacing:-.3px;transition:color .2s}
+.proj-nav-link:hover .pnt{color:var(--text)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.on{opacity:1;transform:none}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}
+
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-in{padding:0 24px}
+  .proj-hero-in,.proj-content{padding-left:24px;padding-right:24px}
+  .proj-h1{font-size:clamp(38px,9vw,60px);letter-spacing:-2px}
+  .proj-meta{gap:28px}
+  .desc-section{grid-template-columns:1fr;gap:48px}
+  .anim-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:480px){
+  .nav-in{padding:0 16px}
+  .proj-hero-in,.proj-content{padding-left:16px;padding-right:16px}
+  .anim-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div id="page-overlay"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-in">
+    <a href="./index.html?no-loader=1" class="back-btn" id="back-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to portfolio
+    </a>
+    <a href="./index.html?no-loader=1" class="logo">Ghaisan</a>
+  </div>
+</nav>
+
+<!-- PROJECT HERO -->
+<div class="proj-hero">
+  <div class="proj-hero-in">
+    <div class="proj-label">03 — Achievement · Motion Design</div>
+    <h1 class="proj-h1">Motion<br/>Design</h1>
+    <div class="proj-meta">
+      <div class="proj-meta-item">
+        <div class="proj-meta-label">Year</div>
+        <div class="proj-meta-val">2026</div>
+      </div>
+      <div class="proj-meta-item">
+        <div class="proj-meta-label">Type</div>
+        <div class="proj-meta-val">Animation / Motion</div>
+      </div>
+      <div class="proj-meta-item">
+        <div class="proj-meta-label">Tools</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Lottie Files</span>
+          <span class="proj-tag">Figma</span>
+          <span class="proj-tag">CSS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="proj-content">
+
+  <!-- PREVIEW -->
+  <div class="preview-area rv">
+    <div class="preview-title">Preview</div>
+
+    <!--
+      ══════════════════════════════════════════════════
+      CARA TAMBAHIN ANIMASI KAMU:
+
+      1. Embed Lottie:
+         <dotlottie-player src="animasi-kamu.json"
+           background="transparent" speed="1"
+           style="width:100%;height:100%"
+           loop autoplay>
+         </dotlottie-player>
+
+      2. Embed video:
+         <video src="animasi-kamu.mp4" autoplay loop muted
+           style="width:100%;height:100%;object-fit:cover">
+         </video>
+
+      3. Embed iframe (Figma, CodePen, dll):
+         <iframe src="URL_KAMU" style="width:100%;height:100%;border:none"></iframe>
+
+      Hapus .preview-box placeholder di bawah kalau udah ada konten
+      ══════════════════════════════════════════════════
+    -->
+
+    <div style="width:100%;aspect-ratio:16/9;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:#090909;display:flex;align-items:center;justify-content:center">
+      <video src="project-1-animasi-daun-2.mp4" autoplay loop muted playsinline style="height:100%;width:auto;display:block"></video>
+    </div>
+
+    <!-- Combined grid below video -->
+    <div class="anim-grid" style="margin-top:2px">
+      <div class="anim-item">
+        <div class="anim-item-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 1 0 20A10 10 0 0 1 12 2z"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div class="anim-item-name">Loop</div>
+      </div>
+      <div class="anim-item">
+        <div class="anim-item-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+        <div class="anim-item-name">Motion</div>
+      </div>
+      <div class="anim-item">
+        <div class="anim-item-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+        </div>
+        <div class="anim-item-name">Effect</div>
+      </div>
+    </div>
+
+    <!-- Description below video -->
+    <div style="margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start">
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px">About this animation</div>
+        <h3 style="font-size:clamp(20px,2.5vw,28px);font-weight:700;color:var(--white);letter-spacing:-.8px;line-height:1.1;margin-bottom:16px">Vegbals Logo Animation</h3>
+        <p style="font-size:14px;color:var(--dim);line-height:1.85;margin-bottom:12px">This is the <strong style="color:var(--body);font-weight:500">animated logo</strong> for the Vegbals UI/UX project — a vegetable center app designed in Figma. The leaf animation represents freshness, nature, and the core identity of the Vegbals brand.</p>
+        <p style="font-size:14px;color:var(--dim);line-height:1.85">The motion was crafted to feel smooth and organic — matching the natural theme of the app. A simple but purposeful animation that brings the brand to life.</p>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px">Details</div>
+        <div style="display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.06em;min-width:80px">Type</div>
+            <div style="font-size:14px;color:var(--text)">Logo Animation</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.06em;min-width:80px">Project</div>
+            <div style="font-size:14px;color:var(--text)">Vegbals — Vegetable Center</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.06em;min-width:80px">Theme</div>
+            <div style="font-size:14px;color:var(--text)">Nature, Freshness, Growth</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.06em;min-width:80px">Year</div>
+            <div style="font-size:14px;color:var(--text)">2025</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- DESCRIPTION -->
+  <div class="desc-section">
+    <div class="rv d1">
+      <div class="desc-label">About this project</div>
+      <h2 class="desc-h2">Bringing interfaces to life with motion</h2>
+      <p class="desc-p">Successfully integrated <strong>Lottie animations</strong> into a live web project — adding professional-quality motion that makes the interface feel more alive and responsive.</p>
+      <p class="desc-p">This project was my first serious experiment with <strong>motion design</strong>. I learned how animation timing, easing, and micro-interactions can completely change how a user feels when using a product.</p>
+      <p class="desc-p">Everything was built with attention to performance — animations that are smooth, lightweight, and purposeful rather than just decorative.</p>
+    </div>
+    <div class="rv d2">
+      <div class="desc-label">Tools used</div>
+      <div class="tool-list">
+        <div class="tool-row">
+          <div class="tool-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M2 12h3M19 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg></div>
+          <div>
+            <div class="tool-name">Lottie Files</div>
+            <div class="tool-desc">For creating & embedding animations</div>
+          </div>
+        </div>
+        <div class="tool-row">
+          <div class="tool-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <div>
+            <div class="tool-name">Figma</div>
+            <div class="tool-desc">For prototyping motion flows</div>
+          </div>
+        </div>
+        <div class="tool-row">
+          <div class="tool-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div>
+            <div class="tool-name">CSS Animations</div>
+            <div class="tool-desc">For micro-interactions & transitions</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="proj-nav rv">
+    <a href="./index.html?no-loader=1" class="proj-nav-link">
+      <div class="pnl">← Back</div>
+      <div class="pnt">All Projects</div>
+    </a>
+    <a href="project-uiux-design-kit.html" class="proj-nav-link right">
+      <div class="pnl">Next →</div>
+      <div class="pnt">UI/UX Design Kit</div>
+    </a>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid var(--line);background:var(--ink)">
+  <div style="max-width:1100px;margin:0 auto;padding:26px 48px;display:flex;align-items:center;justify-content:space-between">
+    <a href="./index.html?no-loader=1" style="font-size:17px;font-weight:700;color:var(--dim);text-decoration:none;letter-spacing:-.3px;font-family:'Space Grotesk',sans-serif">Ghaisan</a>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.05em">&#169; 2025 &nbsp;&#183;&nbsp; Made with curiosity &amp; code</div>
+  </div>
+</footer>
+
+<script>
+// Page transition
+var overlay=document.getElementById('page-overlay');
+document.querySelectorAll('a[href]').forEach(function(a){
+  var href=a.getAttribute('href');
+  if(href&&href!=='#'){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      overlay.style.opacity='1';
+      overlay.style.pointerEvents='all';
+      var targetUrl = new URL(href, window.location.href);
+      setTimeout(function(){window.location.href=targetUrl.href},450);
+    });
+  }
+});
+// Reveal
+var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>3D Spline Design</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{margin:0;overflow:hidden;background:#0a0a0a}
+#spline-container{width:100vw;height:100vh}
+.loading{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#666;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em}
+</style>
+</head>
+<body>
+<div id="spline-container">
+  <div class="loading">Loading 3D scene...</div>
+</div>
+
+<script type="module">
+import { Application } from 'https://unpkg.com/@splinetool/runtime@1.0.0/build/runtime.js';
+
+const container = document.getElementById('spline-container');
+
+async function loadSpline() {
+  try {
+    const spline = await Application.create('https://prod.spline.design/your-scene-url-here.splinecode');
+    container.innerHTML = '';
+    container.appendChild(spline.canvas);
+    spline.setSize(window.innerWidth, window.innerHeight);
+  } catch(e) {
+    container.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#444;font-family:monospace">3D Scene: Replace spline URL in code</div>';
+  }
+}
+
+loadSpline();
+
+window.addEventListener('resize', () => {
+  if(container.querySelector('canvas')) {
+    // Canvas resize handled by spline
+  }
+});
+</script>
+</body>
+</html>

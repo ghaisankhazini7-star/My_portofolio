@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>3D Keyboard Viewer</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#ccc;font-family:'Space Grotesk',sans-serif;overflow:hidden}
+#canvas{display:block;width:100vw;height:100vh}
+.info{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);color:#666;font-size:12px;font-family:'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<div class="info">Drag to rotate • Scroll to zoom</div>
+<script>
+const canvas = document.getElementById('canvas');
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = window.innerHeight;
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0a0a0a);
+
+const camera = new THREE.PerspectiveCamera(45, w/h, 0.1, 100);
+camera.position.set(0, 2, 6);
+
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+renderer.setSize(w, h);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+
+const amb = new THREE.AmbientLight(0xffffff, 0.6);
+scene.add(amb);
+const sun = new THREE.DirectionalLight(0xffffff, 1);
+sun.position.set(5, 10, 5);
+sun.castShadow = true;
+scene.add(sun);
+
+const kb = new THREE.Group();
+scene.add(kb);
+
+const caseMat = new THREE.MeshStandardMaterial({color:0x1a1a1a, roughness:0.4, metalness:0.8});
+const keyMat = new THREE.MeshStandardMaterial({color:0x2a2a2a, roughness:0.5});
+const keyTopMat = new THREE.MeshStandardMaterial({color:0xf0f0f0, roughness:0.3});
+
+const caseGeo = new THREE.BoxGeometry(5, 0.3, 2);
+const caseM = new THREE.Mesh(caseGeo, caseMat);
+caseM.position.y = -0.3;
+caseM.receiveShadow = true;
+kb.add(caseM);
+
+function makeKey(w, d, x, z, raised = false) {
+  const key = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.BoxGeometry(w-0.02, raised ? 0.12 : 0.08, d-0.02), keyMat);
+  body.position.y = 0.04;
+  key.add(body);
+  if(raised) {
+    const top = new THREE.Mesh(new THREE.BoxGeometry(w-0.06, 0.04, d-0.06), keyTopMat);
+    top.position.y = 0.1;
+    key.add(top);
+  }
+  key.position.set(x, raised ? 0.12 : 0.08, z);
+  kb.add(key);
+}
+
+const kw = 0.32, kd = 0.32, g = 0.06;
+let y = 0;
+for(let r = 0; r < 4; r++) {
+  const keys = r === 0 ? 14 : r === 1 ? 13 : r === 2 ? 12 : 6;
+  const offset = (14 - keys) * (kw + g) / 2;
+  for(let i = 0; i < keys; i++) {
+    const x = -3.3 + i * (kw + g) + offset;
+    const z = 0.4 - r * (kd + g);
+    makeKey(kw, kd, x, z);
+  }
+}
+
+const space = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.08, kd), keyMat);
+space.position.set(0, 0.04, -1.4);
+kb.add(space);
+
+const enter = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.08, 1.1), keyMat);
+enter.position.set(2.4, 0.04, -0.3);
+kb.add(enter);
+
+let rotX = 0, rotY = 0, tarX = 0, tarY = 0;
+let isDown = false, startX = 0, startY = 0;
+
+canvas.addEventListener('mousedown', e => {
+  isDown = true;
+  startX = e.clientX;
+  startY = e.clientY;
+});
+window.addEventListener('mouseup', () => isDown = false);
+window.addEventListener('mousemove', e => {
+  if(!isDown) return;
+  tarY += (e.clientX - startX) * 0.005;
+  tarX += (e.clientY - startY) * 0.005;
+  startX = e.clientX;
+  startY = e.clientY;
+});
+
+canvas.addEventListener('wheel', e => {
+  camera.position.z = Math.max(3, Math.min(10, camera.position.z + e.deltaY * 0.01));
+});
+
+function animate() {
+  requestAnimationFrame(animate);
+  rotX += (tarX - rotX) * 0.1;
+  rotY += (tarY - rotY) * 0.1;
+  kb.rotation.set(rotX, rotY, 0);
+  renderer.render(scene, camera);
+}
+animate();
+
+window.addEventListener('resize', () => {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+  camera.aspect = w/h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h);
+});
+</script>
+</body>
+</html>

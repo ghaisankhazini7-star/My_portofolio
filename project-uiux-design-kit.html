@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>UI/UX Design Kit — Ghaisan Khazini</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23090909'/><text y='.9em' font-size='80' font-family='Space Grotesk,sans-serif' font-weight='700' fill='%23f0f0f0'>G</text></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#090909;--ink:#111;--line:#1e1e1e;--muted:#2a2a2a;
+  --sub:#555;--dim:#777;--body:#999;--text:#ccc;--white:#f0f0f0;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+body{background:var(--bg);color:var(--body);font-family:'Space Grotesk',sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;animation:pageIn .5s var(--ease) both}
+#page-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;opacity:0;pointer-events:none;transition:opacity .45s var(--ease)}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(9,9,9,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1100px;margin:0 auto;padding:0 48px;height:62px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:18px;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:-.4px}
+.back-btn{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sub);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:color .2s}
+.back-btn:hover{color:var(--text)}
+.back-btn svg{transition:transform .3s var(--ease)}
+.back-btn:hover svg{transform:translateX(-4px)}
+.proj-hero{padding-top:62px;border-bottom:1px solid var(--line);min-height:55vh;display:flex;align-items:flex-end}
+.proj-hero-in{max-width:1100px;margin:0 auto;width:100%;padding:64px 48px;animation:up .7s .1s both}
+.proj-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sub);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
+.proj-h1{font-size:clamp(48px,7vw,90px);font-weight:700;letter-spacing:-3px;line-height:.92;color:var(--white);margin-bottom:32px}
+.proj-meta{display:flex;gap:48px;flex-wrap:wrap}
+.proj-meta-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.proj-meta-val{font-size:14px;color:var(--text)}
+.proj-tags{display:flex;gap:8px;flex-wrap:wrap}
+.proj-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);padding:4px 12px;border-radius:2px}
+.proj-content{max-width:1100px;margin:0 auto;padding:0 48px}
+.preview-area{padding:80px 0;border-bottom:1px solid var(--line)}
+.preview-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:32px}
+.preview-box{width:100%;aspect-ratio:16/9;background:var(--ink);border:1px solid var(--line);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:var(--muted);position:relative;overflow:hidden}
+.preview-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(255,255,255,.02),transparent)}
+.preview-icon{width:56px;height:56px;border:1px solid var(--muted);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--dim)}
+.preview-txt{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--sub);text-align:center;line-height:1.8}
+.comp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-top:32px}
+.comp-item{background:var(--bg);padding:28px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:background .3s}
+.comp-item:hover{background:var(--ink)}
+.comp-icon{width:40px;height:40px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim);transition:border-color .3s,color .3s}
+.comp-item:hover .comp-icon{border-color:var(--sub);color:var(--text)}
+.comp-name{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.07em;text-transform:uppercase;text-align:center}
+.desc-section{padding:80px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.desc-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px}
+.desc-h2{font-size:clamp(28px,3.5vw,42px);font-weight:700;color:var(--white);letter-spacing:-1.5px;line-height:1.05;margin-bottom:24px}
+.desc-p{font-size:15px;color:var(--dim);line-height:1.85}
+.desc-p+.desc-p{margin-top:14px}
+.desc-p strong{color:var(--body);font-weight:500}
+.tool-list{display:flex;flex-direction:column;gap:0}
+.tool-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.tool-row:first-child{border-top:1px solid var(--line)}
+.tool-icon{width:32px;height:32px;border:1px solid var(--line);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--muted);flex-shrink:0}
+.tool-name{font-size:14px;color:var(--text);font-weight:500}
+.tool-desc{font-size:12px;color:var(--sub);margin-top:2px}
+.proj-nav{padding:64px 0;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.proj-nav-link{text-decoration:none;display:flex;flex-direction:column;gap:6px}
+.proj-nav-link.right{align-items:flex-end}
+.pnl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.pnt{font-size:20px;font-weight:700;color:var(--white);letter-spacing:-.3px;transition:color .2s}
+.proj-nav-link:hover .pnt{color:var(--text)}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.on{opacity:1;transform:none}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(max-width:768px){
+  .nav-in,.proj-hero-in,.proj-content{padding-left:24px;padding-right:24px}
+  .proj-h1{font-size:clamp(38px,9vw,60px);letter-spacing:-2px}
+  .proj-meta{gap:28px}
+  .desc-section{grid-template-columns:1fr;gap:48px}
+  .comp-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:480px){
+  .nav-in,.proj-hero-in,.proj-content{padding-left:16px;padding-right:16px}
+  .comp-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div id="page-overlay"></div>
+
+<nav>
+  <div class="nav-in">
+    <a href="index.html?no-loader=1" class="back-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to portfolio
+    </a>
+    <a href="index.html?no-loader=1" class="logo">Ghaisan</a>
+  </div>
+</nav>
+
+<div class="proj-hero">
+  <div class="proj-hero-in">
+    <div class="proj-label">02 — Project · UI/UX Design</div>
+    <h1 class="proj-h1">UI/UX<br/>Design Kit</h1>
+    <div class="proj-meta">
+      <div>
+        <div class="proj-meta-label">Year</div>
+        <div class="proj-meta-val">2025</div>
+      </div>
+      <div>
+        <div class="proj-meta-label">Type</div>
+        <div class="proj-meta-val">Design System / UI Kit</div>
+      </div>
+      <div>
+        <div class="proj-meta-label">Tools</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Figma</span>
+          <span class="proj-tag">UI Design</span>
+          <span class="proj-tag">Design System</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="proj-content">
+
+  <div class="preview-area rv">
+    <div class="preview-title">Preview</div>
+
+    <!-- Vegbals UI Design -->
+    <div style="width:100%;border-radius:4px;overflow:hidden;border:1px solid var(--line)">
+      <img src="ui_ux.png" alt="Vegbals UI Design" style="width:100%;display:block;object-fit:cover"/>
+    </div>
+
+    <div class="comp-grid">
+      <div class="comp-item">
+        <div class="comp-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+        <div class="comp-name">Buttons</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div class="comp-name">Cards</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h7"/></svg></div>
+        <div class="comp-name">Navbar</div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+        <div class="comp-name">Inputs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VEGBALS HIGHLIGHT SECTION -->
+  <div style="padding:80px 0;border-bottom:1px solid var(--line)" class="rv">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:32px">Featured UI — Vegbals</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start">
+      <div>
+        <h2 style="font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--white);letter-spacing:-1.2px;line-height:1.1;margin-bottom:20px">Vegbals — Vegetable Center App</h2>
+        <p style="font-size:15px;color:var(--dim);line-height:1.85;margin-bottom:14px">Vegbals is a mobile app UI design that makes it easy for users to buy fresh vegetables straight from their phone. The interface is clean, modern, and intuitive for anyone to use.</p>
+        <p style="font-size:15px;color:var(--dim);line-height:1.85;margin-bottom:14px">Designed in <strong style="color:var(--body);font-weight:500">Figma</strong> with careful attention to visual hierarchy, color consistency, and intuitive user experience — every element is crafted so users instantly understand how to use it.</p>
+        <p style="font-size:15px;color:var(--dim);line-height:1.85">Built with a <strong style="color:var(--body);font-weight:500">Global Guidestyle</strong> that ensures all 30+ screens maintain a consistent look and feel from start to finish.</p>
+      </div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px">What's inside</div>
+        <div style="display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);border-top:1px solid var(--line)">
+            <div style="width:28px;height:28px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim);flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:11px">30+</div>
+            <div style="font-size:14px;color:var(--text)">Screens</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)">
+            <div style="width:28px;height:28px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim);flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:11px">40+</div>
+            <div style="font-size:14px;color:var(--text)">User App Screen</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)">
+            <div style="width:28px;height:28px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim);flex-shrink:0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div style="font-size:14px;color:var(--text)">Global Guidestyle & Design System</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)">
+            <div style="width:28px;height:28px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim);flex-shrink:0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+            </div>
+            <div style="font-size:14px;color:var(--text)">Free Google Font & Fully Customizable</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)">
+            <div style="width:28px;height:28px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim);flex-shrink:0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            </div>
+            <div style="font-size:14px;color:var(--text)">Compatible with Figma</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WANT TO KNOW MORE -->
+  <div style="padding:80px 0;border-bottom:1px solid var(--line);text-align:center" class="rv">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px">Want to know more?</div>
+    <h2 style="font-size:clamp(28px,4vw,48px);font-weight:700;color:var(--white);letter-spacing:-2px;line-height:1;margin-bottom:16px">Curious about this UI?</h2>
+    <p style="font-size:15px;color:var(--dim);max-width:480px;margin:0 auto 36px;line-height:1.8">If you want to know more about this design — how it was made, the tools used, or want to collaborate — contact me directly!</p>
+    <a href="index.html?no-loader=1#contact" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--bg);background:var(--white);padding:13px 30px;border-radius:2px;text-decoration:none;transition:opacity .2s">
+      Contact Me
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+
+  <div class="desc-section">
+    <div class="rv d1">
+      <div class="desc-label">About this projec t</div>
+      <h2 class="desc-h2">A complete design system built in Figma</h2>
+      <p class="desc-p">A collection of <strong>reusable UI components</strong> built in Figma — buttons, cards, navbars, inputs, and more. All organized into a clean design system ready to use for any web project.</p>
+      <p class="desc-p">The goal was to build something <strong>consistent and scalable</strong>. Every component follows the same spacing, color, and typography rules so they all work together perfectly.</p>
+      <p class="desc-p">This project taught me the importance of <strong>design systems</strong> — how having a solid foundation of components makes building interfaces so much faster and more consistent.</p>
+    </div>
+    <div class="rv d2">
+      <div class="desc-label">Tools used</div>
+      <div class="tool-list">
+        <div class="tool-row">
+          <div class="tool-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <div>
+            <div class="tool-name">Figma</div>
+            <div class="tool-desc">Main design tool for all components</div>
+          </div>
+        </div>
+        <div class="tool-row">
+          <div class="tool-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <div>
+            <div class="tool-name">UI Design</div>
+            <div class="tool-desc">Layout, spacing & visual consistency</div>
+          </div>
+        </div>
+        <div class="tool-row">
+          <div class="tool-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+          <div>
+            <div class="tool-name">Design System</div>
+            <div class="tool-desc">Component tokens & reusable structure</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-nav rv">
+    <a href="index.html?no-loader=1" class="proj-nav-link">
+      <div class="pnl">← Back</div>
+      <div class="pnt">All Projects</div>
+    </a>
+    <a href="project-interactive-web-app.html" class="proj-nav-link right">
+      <div class="pnl">Next →</div>
+      <div class="pnt">Interactive Web App</div>
+    </a>
+  </div>
+
+</div>
+
+<footer style="border-top:1px solid var(--line);background:var(--ink)">
+  <div style="max-width:1100px;margin:0 auto;padding:26px 48px;display:flex;align-items:center;justify-content:space-between">
+    <a href="index.html?no-loader=1" style="font-size:17px;font-weight:700;color:var(--dim);text-decoration:none;letter-spacing:-.3px;font-family:'Space Grotesk',sans-serif">Ghaisan</a>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.05em">&#169; 2025 &nbsp;&#183;&nbsp; Made with curiosity &amp; code</div>
+  </div>
+</footer>
+
+<script>
+var overlay=document.getElementById('page-overlay');
+document.querySelectorAll('a[href]').forEach(function(a){
+  var href=a.getAttribute('href');
+  if(href&&href!=='#'){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      overlay.style.opacity='1';
+      overlay.style.pointerEvents='all';
+      setTimeout(function(){window.location.href=href},450);
+    });
+  }
+});
+var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>

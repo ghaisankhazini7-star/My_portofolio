@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Interactive Web App — Ghaisan Khazini</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23090909'/><text y='.9em' font-size='80' font-family='Space Grotesk,sans-serif' font-weight='700' fill='%23f0f0f0'>G</text></svg>"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#090909;--ink:#111;--line:#1e1e1e;--muted:#2a2a2a;
+  --sub:#555;--dim:#777;--body:#999;--text:#ccc;--white:#f0f0f0;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+body{background:var(--bg);color:var(--body);font-family:'Space Grotesk',sans-serif;font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;animation:pageIn .5s var(--ease) both}
+#page-overlay{position:fixed;inset:0;background:var(--bg);z-index:9999;opacity:0;pointer-events:none;transition:opacity .45s var(--ease)}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(9,9,9,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1100px;margin:0 auto;padding:0 48px;height:62px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:18px;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:-.4px}
+.back-btn{display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sub);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:color .2s}
+.back-btn:hover{color:var(--text)}
+.back-btn svg{transition:transform .3s var(--ease)}
+.back-btn:hover svg{transform:translateX(-4px)}
+.proj-hero{padding-top:62px;border-bottom:1px solid var(--line);min-height:55vh;display:flex;align-items:flex-end}
+.proj-hero-in{max-width:1100px;margin:0 auto;width:100%;padding:64px 48px;animation:up .7s .1s both}
+.proj-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sub);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
+.proj-h1{font-size:clamp(48px,7vw,90px);font-weight:700;letter-spacing:-3px;line-height:.92;color:var(--white);margin-bottom:32px}
+.proj-meta{display:flex;gap:48px;flex-wrap:wrap}
+.proj-meta-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.proj-meta-val{font-size:14px;color:var(--text)}
+.proj-tags{display:flex;gap:8px;flex-wrap:wrap}
+.proj-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);padding:4px 12px;border-radius:2px}
+.proj-content{max-width:1100px;margin:0 auto;padding:0 48px}
+.preview-area{padding:80px 0;border-bottom:1px solid var(--line)}
+.preview-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:32px}
+.preview-box{width:100%;aspect-ratio:16/9;background:var(--ink);border:1px solid var(--line);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:var(--muted);position:relative;overflow:hidden}
+.preview-box::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(255,255,255,.02),transparent)}
+.preview-icon{width:56px;height:56px;border:1px solid var(--muted);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--dim)}
+.preview-txt{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--sub);text-align:center;line-height:1.8}
+.code-card{background:var(--ink);border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-top:32px}
+.cc-bar{display:flex;align-items:center;gap:7px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.ccd{width:11px;height:11px;border-radius:50%}
+.ccd:nth-child(1){background:#ff5f57}.ccd:nth-child(2){background:#febc2e}.ccd:nth-child(3){background:#28c840}
+.cc-file{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sub);margin-left:10px}
+.cc-body{padding:28px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:2.1;color:var(--muted)}
+.ck{color:#6495a8}.cv{color:#8fbc8f}.cs{color:#c8a96e}.cn{color:#8888cc}.cm{color:var(--muted);opacity:.5}.cw{color:var(--dim)}
+.desc-section{padding:80px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.desc-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:24px}
+.desc-h2{font-size:clamp(28px,3.5vw,42px);font-weight:700;color:var(--white);letter-spacing:-1.5px;line-height:1.05;margin-bottom:24px}
+.desc-p{font-size:15px;color:var(--dim);line-height:1.85}
+.desc-p+.desc-p{margin-top:14px}
+.desc-p strong{color:var(--body);font-weight:500}
+.tool-list{display:flex;flex-direction:column;gap:0}
+.tool-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.tool-row:first-child{border-top:1px solid var(--line)}
+.tool-icon{width:32px;height:32px;border:1px solid var(--line);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--muted);flex-shrink:0}
+.tool-name{font-size:14px;color:var(--text);font-weight:500}
+.tool-desc{font-size:12px;color:var(--sub);margin-top:2px}
+.proj-nav{padding:64px 0;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.proj-nav-link{text-decoration:none;display:flex;flex-direction:column;gap:6px}
+.proj-nav-link.right{align-items:flex-end}
+.pnl{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.pnt{font-size:20px;font-weight:700;color:var(--white);letter-spacing:-.3px;transition:color .2s}
+.proj-nav-link:hover .pnt{color:var(--text)}
+.rv{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.on{opacity:1;transform:none}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(max-width:768px){
+  .nav-in,.proj-hero-in,.proj-content{padding-left:24px;padding-right:24px}
+  .proj-h1{font-size:clamp(38px,9vw,60px);letter-spacing:-2px}
+  .proj-meta{gap:28px}
+  .desc-section{grid-template-columns:1fr;gap:48px}
+}
+@media(max-width:480px){
+  .nav-in,.proj-hero-in,.proj-content{padding-left:16px;padding-right:16px}
+}
+</style>
+</head>
+<body>
+<div id="page-overlay"></div>
+
+<nav>
+  <div class="nav-in">
+    <a href="./index.html?no-loader=1" class="back-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to portfolio
+    </a>
+    <a href="./index.html?no-loader=1" class="logo">Ghaisan</a>
+  </div>
+</nav>
+
+<div class="proj-hero">
+  <div class="proj-hero-in">
+    <div class="proj-label">04 — Project · JavaScript</div>
+    <h1 class="proj-h1">Interactive<br/>Web App</h1>
+    <div class="proj-meta">
+      <div>
+        <div class="proj-meta-label">Year</div>
+        <div class="proj-meta-val">2026</div>
+      </div>
+      <div>
+        <div class="proj-meta-label">Type</div>
+        <div class="proj-meta-val">Web Application</div>
+      </div>
+      <div>
+        <div class="proj-meta-label">Tools</div>
+        <div class="proj-tags">
+          <span class="proj-tag">HTML</span>
+          <span class="proj-tag">CSS</span>
+          <span class="proj-tag">JavaScript</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="proj-content">
+
+  <div class="preview-area rv">
+    <div class="preview-title">Preview</div>
+    <!--
+      CARA TAMBAHIN PREVIEW KAMU:
+      1. Embed CodePen / live URL:
+         <iframe src="URL_PROJECT_KAMU"
+           style="width:100%;height:100%;border:none"></iframe>
+      2. Screenshot:
+         <img src="screenshot.png" style="width:100%;height:100%;object-fit:cover"/>
+      Hapus .preview-box di bawah kalau udah ada konten
+    -->
+    <!-- Screenshot preview -->
+    <div style="width:100%;border:1px solid var(--line);border-radius:4px;overflow:hidden">
+      <img src="momentumind_image.png" alt="Moomentum Mind Website" style="width:100%;display:block"/>
+    </div>
+
+    <!-- Visit button -->
+    <div style="margin-top:20px;display:flex;align-items:center;gap:16px">
+      <a href="https://moomentummind.netlify.app/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sub);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;border:1px solid var(--line);padding:10px 20px;border-radius:2px;transition:color .2s,border-color .2s">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Visit Live Site
+      </a>
+      <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted)">moomentummind.netlify.app</span>
+    </div>
+
+    <!-- Feature grid -->
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden;margin-top:32px">
+      <div style="background:var(--bg);padding:28px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:background .3s" onmouseover="this.style.background='var(--ink)'" onmouseout="this.style.background='var(--bg)'">
+        <div style="width:40px;height:40px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.07em;text-transform:uppercase;text-align:center">Animations</div>
+      </div>
+      <div style="background:var(--bg);padding:28px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:background .3s" onmouseover="this.style.background='var(--ink)'" onmouseout="this.style.background='var(--bg)'">
+        <div style="width:40px;height:40px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.07em;text-transform:uppercase;text-align:center">Responsive</div>
+      </div>
+      <div style="background:var(--bg);padding:28px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:background .3s" onmouseover="this.style.background='var(--ink)'" onmouseout="this.style.background='var(--bg)'">
+        <div style="width:40px;height:40px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.07em;text-transform:uppercase;text-align:center">Team Section</div>
+      </div>
+      <div style="background:var(--bg);padding:28px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:background .3s" onmouseover="this.style.background='var(--ink)'" onmouseout="this.style.background='var(--bg)'">
+        <div style="width:40px;height:40px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.07em;text-transform:uppercase;text-align:center">Smooth Scroll</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="desc-section">
+    <div class="rv d1">
+      <div class="desc-label">About this project</div>
+      <h2 class="desc-h2">Moomentum Mind — Design Agency Website</h2>
+      <p class="desc-p">A fully interactive website built for <strong>Moomentum Mind</strong>, the design agency community I'm part of as a Software Engineer. The site showcases the team, services, and brand identity.</p>
+      <p class="desc-p">Built with pure <strong>HTML, CSS, and JavaScript</strong> — featuring smooth scroll animations, a loading screen, page transitions, and sections for About, Services, Team, and Contact.</p>
+      <p class="desc-p">This project taught me how to build a <strong>real-world client-facing website</strong> from scratch — balancing design, performance, and interactivity all in one.</p>
+    </div>
+    <div class="rv d2">
+      <div class="desc-label">Tools used</div>
+      <div class="tool-list">
+        <div class="tool-row">
+          <div class="tool-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div>
+            <div class="tool-name">JavaScript</div>
+            <div class="tool-desc">Animations, scroll effects & interactivity</div>
+          </div>
+        </div>
+        <div class="tool-row">
+          <div class="tool-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/><path d="M9 9h6M9 12h6M9 15h4"/></svg></div>
+          <div>
+            <div class="tool-name">HTML</div>
+            <div class="tool-desc">Semantic structure & layout</div>
+          </div>
+        </div>
+        <div class="tool-row">
+          <div class="tool-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg></div>
+          <div>
+            <div class="tool-name">CSS</div>
+            <div class="tool-desc">Custom animations & responsive design</div>
+          </div>
+        </div>
+        <div class="tool-row">
+          <div class="tool-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>
+          <div>
+            <div class="tool-name">Netlify</div>
+            <div class="tool-desc">Deployment & hosting</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="proj-nav rv">
+    <a href="project-motion-design.html" class="proj-nav-link">
+      <div class="pnl">← Prev</div>
+      <div class="pnt">Motion Design</div>
+    </a>
+    <a href="index.html?no-loader=1" class="proj-nav-link right">
+      <div class="pnl">Back →</div>
+      <div class="pnt">All Projects</div>
+    </a>
+  </div>
+
+</div>
+
+<footer style="border-top:1px solid var(--line);background:var(--ink)">
+  <div style="max-width:1100px;margin:0 auto;padding:26px 48px;display:flex;align-items:center;justify-content:space-between">
+    <a href="index.html?no-loader=1" style="font-size:17px;font-weight:700;color:var(--dim);text-decoration:none;letter-spacing:-.3px;font-family:'Space Grotesk',sans-serif">Ghaisan</a>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.05em">&#169; 2025 &nbsp;&#183;&nbsp; Made with curiosity &amp; code</div>
+  </div>
+</footer>
+
+<script>
+var overlay=document.getElementById('page-overlay');
+document.querySelectorAll('a[href]').forEach(function(a){
+  var href=a.getAttribute('href');
+  if(href&&href!=='#'){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      overlay.style.opacity='1';
+      overlay.style.pointerEvents='all';
+      setTimeout(function(){window.location.href=href},450);
+    });
+  }
+});
+var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+</script>
+</body>
+</html>

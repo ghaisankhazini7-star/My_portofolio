@@ -6,7 +6,7 @@
 
 <!-- ── SEO META TAGS ── -->
 <title>Ghaisan Khazini — Developer & Designer</title>
-<meta name="description" content="13-year-old self-taught frontend developer and UI/UX designer from Indonesia. Building clean websites and cool interfaces."/>
+<meta name="description" content="14-year-old self-taught frontend developer and UI/UX designer from Indonesia. Building clean websites and cool interfaces."/>
 <meta name="keywords" content="Ghaisan, Ghaisan Khazini, developer, designer, UI UX, frontend, Indonesia, portfolio"/>
 <meta name="author" content="Ghaisan Khazini"/>
 <meta name="robots" content="index, follow"/>
@@ -14,17 +14,17 @@
 <!-- ── OPEN GRAPH (WhatsApp, Discord, Facebook preview) ── -->
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Ghaisan Khazini — Developer & Designer"/>
-<meta property="og:description" content="13-year-old self-taught frontend developer and UI/UX designer from Indonesia."/>
+<meta property="og:description" content="14-year-old self-taught frontend developer and UI/UX designer from Indonesia."/>
 <meta property="og:url" content="https://ghaisankhazini.vercel.app"/>
 <meta property="og:image" content="https://ghaisankhazini.vercel.app/og-image.png"/>
 
 <!-- ── TWITTER CARD ── -->
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Ghaisan Khazini — Developer & Designer"/>
-<meta name="twitter:description" content="13-year-old self-taught frontend developer and UI/UX designer from Indonesia."/>
+<meta name="twitter:description" content="14-year-old self-taught frontend developer and UI/UX designer from Indonesia."/>
 
-<!-- ── FAVICON (inline SVG as data URI) ── -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%23090909'/><text y='.9em' font-size='80' font-family='Space Grotesk,sans-serif' font-weight='700' fill='%23f0f0f0'>G</text></svg>"/>
+<!-- ── FAVICON ── -->
+<link rel="icon" type="image/svg+xml" href="Logo%20website.svg"/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -44,7 +44,8 @@ body{background:var(--bg);color:var(--body);font-family:'Space Grotesk',sans-ser
 #loader{position:fixed;inset:0;background:var(--bg);z-index:9000;display:flex;align-items:center;justify-content:center;transition:opacity .6s var(--ease),visibility .6s}
 #loader.hide{opacity:0;visibility:hidden}
 .loader-inner{display:flex;flex-direction:column;align-items:center;gap:24px}
-.loader-logo{font-size:32px;font-weight:700;color:var(--white);letter-spacing:-.8px;opacity:0;animation:up .5s .1s both}
+.loader-logo{width:38px;height:38px;opacity:0;animation:up .5s .1s both}
+.loader-logo img{width:100%;height:100%;display:block}
 .loader-bar-wrap{width:160px;height:1px;background:var(--line);border-radius:1px;overflow:hidden;opacity:0;animation:up .4s .3s both}
 .loader-bar{height:100%;background:var(--white);width:0;animation:load 1.2s .4s var(--ease) forwards}
 .loader-txt{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.12em;text-transform:uppercase;opacity:0;animation:up .4s .5s both}
@@ -59,7 +60,8 @@ body{background:var(--bg);color:var(--body);font-family:'Space Grotesk',sans-ser
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(9,9,9,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
 .nav-in{max-width:1100px;margin:0 auto;padding:0 48px;height:62px;display:flex;align-items:center;justify-content:space-between;animation:up .6s .1s both}
-.logo{font-size:18px;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:-.4px}
+.logo{display:flex;align-items:center;width:38px;height:38px;color:var(--white);text-decoration:none}
+.logo img{width:38px;height:38px;display:block}
 .nav-links{display:flex;gap:36px}
 .nav-links a{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--sub);text-decoration:none;font-weight:500;transition:color .2s;position:relative}
 .nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--text);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
@@ -211,7 +213,8 @@ section{border-bottom:1px solid var(--line)}
 /* ── FOOTER ── */
 footer{border-top:1px solid var(--line);background:var(--ink)}
 .foot-in{max-width:1100px;margin:0 auto;padding:26px 48px;display:flex;align-items:center;justify-content:space-between}
-.foot-logo{font-size:17px;font-weight:700;color:var(--dim);text-decoration:none;letter-spacing:-.3px}
+.foot-logo{display:flex;align-items:center;width:38px;height:38px;color:var(--dim);text-decoration:none}
+.foot-logo img{width:38px;height:38px;display:block}
 .foot-copy{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.05em}
 
 /* ── REVEAL ── */
@@ -307,7 +310,7 @@ footer{border-top:1px solid var(--line);background:var(--ink)}
 <!-- LOADING SCREEN -->
 <div id="loader">
   <div class="loader-inner">
-    <div class="loader-logo">Ghaisan</div>
+    <div class="loader-logo"><img src="Logo%20website.svg" alt="Ghaisan logo"/></div>
     <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
     <div class="loader-txt">Loading portfolio...</div>
   </div>
@@ -326,7 +329,7 @@ footer{border-top:1px solid var(--line);background:var(--ink)}
 <!-- NAV -->
 <nav>
   <div class="nav-in">
-    <a href="#" class="logo">Hi Ghaisan!</a>
+    <a href="#" class="logo" aria-label="Ghaisan home"><img src="Logo%20website.svg" alt="Ghaisan logo"/></a>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#projects">Work</a>
@@ -640,7 +643,7 @@ footer{border-top:1px solid var(--line);background:var(--ink)}
 <!-- FOOTER -->
 <footer>
   <div class="foot-in">
-    <a href="#" class="foot-logo">Ghaisan</a>
+    <a href="#" class="foot-logo" aria-label="Ghaisan home"><img src="Logo%20website.svg" alt="Ghaisan logo"/></a>
     <div class="foot-copy">&#169; 2025 &nbsp;&#183;&nbsp; Made with curiosity &amp; code</div>
   </div>
 </footer>

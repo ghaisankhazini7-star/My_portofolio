@@ -7,14 +7,14 @@ Welcome to my GitHub profile!
 
 I'm Ghaisan, a developer who is passionate about technology, web development, and mobile application development. I enjoy learning new things, exploring creative ideas, and building projects that are useful and meaningful.
 
-## 🚀 About Me
+## About Me
 
-- 👨‍💻 Interested in Web Development and App Development
-- 🌱 Currently learning and improving my programming skills
-- 🎨 Interested in UI/UX Design and creative digital projects
-- 💡 Always excited to explore new technologies
+-  Interested in Web Development and App Development
+-  Currently learning and improving my programming skills
+-  Interested in UI/UX Design and creative digital projects
+-  Always excited to explore new technologies
 
-## 🛠️ Technologies & Tools
+## Technologies & Tools
 
 > Add the technologies you use in your projects here.
 
@@ -23,15 +23,16 @@ I'm Ghaisan, a developer who is passionate about technology, web development, an
 - JavaScript
 - Git & GitHub
 - Kodular
+- flutter
 
-## 📂 My Portfolio
+## My Portfolio
 
 This repository contains my personal portfolio website, where I showcase my projects, skills, and experiences.
 
-## 📫 Connect With Me
+## Connect With Me
 
 - GitHub: [ghaisankhazini7-star](https://github.com/ghaisankhazini7-star)
 
 ---
 
-⭐ Thanks for visiting my GitHub profile!
+ Thanks for visiting my GitHub profile!

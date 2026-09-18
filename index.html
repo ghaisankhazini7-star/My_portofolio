@@ -78,11 +78,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(9,9,9,.92);b
 .burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
 /* mobile menu */
-.mob-menu{position:fixed;top:62px;left:0;right:0;bottom:0;background:rgba(9,9,9,.98);backdrop-filter:blur(24px);z-index:499;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;transform:translateX(100%);transition:transform .45s var(--ease)}
+.mob-menu{position:fixed;top:62px;right:0;bottom:0;width:min(88vw,360px);padding:40px 28px;background:rgba(9,9,9,.98);backdrop-filter:blur(24px);border-left:1px solid var(--line);box-shadow:-18px 0 40px rgba(0,0,0,.28);z-index:499;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:12px;transform:translateX(100%);transition:transform .45s var(--ease)}
 .mob-menu.open{transform:translateX(0)}
-.mob-menu a{font-size:clamp(28px,7vw,42px);font-weight:700;color:var(--dim);text-decoration:none;letter-spacing:-.5px;transition:color .2s}
+.mob-menu a{width:100%;padding:10px 0;font-size:clamp(24px,7vw,34px);font-weight:700;color:var(--dim);text-decoration:none;letter-spacing:-.5px;transition:color .2s}
 .mob-menu a:hover{color:var(--white)}
-.mob-menu .mob-btn{font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--bg);background:var(--white);border-radius:2px;padding:13px 36px;margin-top:8px}
+.mob-menu .mob-btn{width:auto;font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--bg);background:var(--white);border-radius:2px;padding:13px 24px;margin-top:16px}
 
 /* ── HERO ── */
 .hero{min-height:100vh;padding-top:62px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;position:relative;overflow:hidden}
@@ -338,7 +338,7 @@ footer{border-top:1px solid var(--line);background:var(--ink)}
       <a href="#contact">Contact</a>
     </div>
     <a href="#contact" class="nav-btn">Let's Talk</a>
-    <button class="burger" id="burger" aria-label="Menu">
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mob-menu">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -351,7 +351,7 @@ footer{border-top:1px solid var(--line);background:var(--ink)}
   <a href="#experience" class="mob-link">Experience</a>
   <a href="#achievements" class="mob-link">Achievements</a>
   <a href="#contact" class="mob-link">Contact</a>
-  <a href="#contact" class="<PhoneDropped />mob-btn mob-link">Let's Talk</a>
+  <a href="#contact" class="mob-btn mob-link">Let's Talk</a>
 </div>
 
 <!-- HERO -->
@@ -699,14 +699,23 @@ var mobMenu = document.getElementById('mob-menu');
 burger.addEventListener('click', function(){
   var open = burger.classList.toggle('open');
   mobMenu.classList.toggle('open', open);
+  burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   document.body.style.overflow = open ? 'hidden' : '';
 });
 document.querySelectorAll('.mob-link').forEach(function(a){
   a.addEventListener('click', function(){
     burger.classList.remove('open');
     mobMenu.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-label', 'Open menu');
     document.body.style.overflow = '';
   });
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && mobMenu.classList.contains('open')){
+    burger.click();
+  }
 });
 
 // ── BACK TO TOP ──

@@ -36,7 +36,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(9,9,9,.92);b
 .proj-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sub);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
 .proj-h1{font-size:clamp(48px,7vw,90px);font-weight:700;letter-spacing:-3px;line-height:.92;color:var(--white);margin-bottom:32px}
 .proj-meta{display:flex;gap:48px;flex-wrap:wrap}
-.proj-meta-item{}
 .proj-meta-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
 .proj-meta-val{font-size:14px;color:var(--text)}
 .proj-tags{display:flex;gap:8px;flex-wrap:wrap}
@@ -75,6 +74,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(9,9,9,.92);b
 .desc-p{font-size:15px;color:var(--dim);line-height:1.85}
 .desc-p+.desc-p{margin-top:14px}
 .desc-p strong{color:var(--body);font-weight:500}
+.animation-info{margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.animation-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.animation-title{font-size:clamp(20px,2.5vw,28px);font-weight:700;color:var(--white);letter-spacing:-.8px;line-height:1.1;margin-bottom:16px}
+.animation-p{font-size:14px;color:var(--dim);line-height:1.85}
+.animation-p+.animation-p{margin-top:12px}
+.animation-p strong{color:var(--body);font-weight:500}
+.detail-list{display:flex;flex-direction:column}
+.detail-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.detail-row:first-child{border-top:1px solid var(--line)}
+.detail-key{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.06em;min-width:80px}
+.detail-value{font-size:14px;color:var(--text)}
 .tool-list{display:flex;flex-direction:column;gap:12px;margin-top:8px}
 .tool-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
 .tool-row:first-child{border-top:1px solid var(--line)}
@@ -105,6 +115,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(9,9,9,.92);b
   .proj-h1{font-size:clamp(38px,9vw,60px);letter-spacing:-2px}
   .proj-meta{gap:28px}
   .desc-section{grid-template-columns:1fr;gap:48px}
+  .animation-info{grid-template-columns:1fr;gap:48px}
   .anim-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:480px){
@@ -188,7 +199,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(9,9,9,.92);b
       <video src="project-1-animasi-daun-2.mp4" autoplay loop muted playsinline style="height:100%;width:auto;display:block"></video>
     </div>
 
-    <!-- Combined grid below video -->
+    <!-- Animation qualities -->
     <div class="anim-grid" style="margin-top:2px">
       <div class="anim-item">
         <div class="anim-item-icon">
@@ -211,31 +222,31 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(9,9,9,.92);b
     </div>
 
     <!-- Description below video -->
-    <div style="margin-top:48px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start">
+    <div class="animation-info">
       <div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px">About this animation</div>
-        <h3 style="font-size:clamp(20px,2.5vw,28px);font-weight:700;color:var(--white);letter-spacing:-.8px;line-height:1.1;margin-bottom:16px">Vegbals Logo Animation</h3>
-        <p style="font-size:14px;color:var(--dim);line-height:1.85;margin-bottom:12px">This is the <strong style="color:var(--body);font-weight:500">animated logo</strong> for the Vegbals UI/UX project — a vegetable center app designed in Figma. The leaf animation represents freshness, nature, and the core identity of the Vegbals brand.</p>
-        <p style="font-size:14px;color:var(--dim);line-height:1.85">The motion was crafted to feel smooth and organic — matching the natural theme of the app. A simple but purposeful animation that brings the brand to life.</p>
+        <div class="animation-label">About this animation</div>
+        <h3 class="animation-title">Vegbals Logo Animation</h3>
+        <p class="animation-p">This <strong>animated logo</strong> was created for the Vegbals vegetable center app. Its leaf movement reflects the freshness and natural character of the brand.</p>
+        <p class="animation-p">The motion is smooth and organic, giving the identity a subtle sense of life without distracting from the interface.</p>
       </div>
       <div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px">Details</div>
-        <div style="display:flex;flex-direction:column">
-          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.06em;min-width:80px">Type</div>
-            <div style="font-size:14px;color:var(--text)">Logo Animation</div>
+        <div class="animation-label">Details</div>
+        <div class="detail-list">
+          <div class="detail-row">
+            <div class="detail-key">Type</div>
+            <div class="detail-value">Logo animation</div>
           </div>
-          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.06em;min-width:80px">Project</div>
-            <div style="font-size:14px;color:var(--text)">Vegbals — Vegetable Center</div>
+          <div class="detail-row">
+            <div class="detail-key">Project</div>
+            <div class="detail-value">Vegbals — Vegetable Center</div>
           </div>
-          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.06em;min-width:80px">Theme</div>
-            <div style="font-size:14px;color:var(--text)">Nature, Freshness, Growth</div>
+          <div class="detail-row">
+            <div class="detail-key">Theme</div>
+            <div class="detail-value">Nature, freshness, growth</div>
           </div>
-          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)">
-            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--sub);letter-spacing:.06em;min-width:80px">Year</div>
-            <div style="font-size:14px;color:var(--text)">2025</div>
+          <div class="detail-row">
+            <div class="detail-key">Year</div>
+            <div class="detail-value">2025</div>
           </div>
         </div>
       </div>

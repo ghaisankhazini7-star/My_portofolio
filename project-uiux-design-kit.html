@@ -54,6 +54,19 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(9,9,9,.92);b
 .desc-p{font-size:15px;color:var(--dim);line-height:1.85}
 .desc-p+.desc-p{margin-top:14px}
 .desc-p strong{color:var(--body);font-weight:500}
+.feature-section{padding:80px 0;border-bottom:1px solid var(--line)}
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.feature-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:32px}
+.feature-title{font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--white);letter-spacing:-1.2px;line-height:1.1;margin-bottom:20px}
+.feature-p{font-size:15px;color:var(--dim);line-height:1.85;margin-bottom:14px}
+.feature-p:last-child{margin-bottom:0}
+.feature-p strong{color:var(--body);font-weight:500}
+.feature-list-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
+.feature-list{display:flex;flex-direction:column}
+.feature-item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.feature-item:first-child{border-top:1px solid var(--line)}
+.feature-item-icon{width:28px;height:28px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim);flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:11px}
+.feature-item-text{font-size:14px;color:var(--text)}
 .tool-list{display:flex;flex-direction:column;gap:0}
 .tool-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
 .tool-row:first-child{border-top:1px solid var(--line)}
@@ -76,6 +89,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(9,9,9,.92);b
   .proj-h1{font-size:clamp(38px,9vw,60px);letter-spacing:-2px}
   .proj-meta{gap:28px}
   .desc-section{grid-template-columns:1fr;gap:48px}
+  .feature-grid{grid-template-columns:1fr;gap:48px}
   .comp-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:480px){
@@ -153,43 +167,43 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(9,9,9,.92);b
   </div>
 
   <!-- VEGBALS HIGHLIGHT SECTION -->
-  <div style="padding:80px 0;border-bottom:1px solid var(--line)" class="rv">
-    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:32px">Featured UI — Vegbals</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start">
+  <div class="feature-section rv">
+    <div class="feature-label">Featured UI — Vegbals</div>
+    <div class="feature-grid">
       <div>
-        <h2 style="font-size:clamp(24px,3vw,36px);font-weight:700;color:var(--white);letter-spacing:-1.2px;line-height:1.1;margin-bottom:20px">Vegbals — Vegetable Center App</h2>
-        <p style="font-size:15px;color:var(--dim);line-height:1.85;margin-bottom:14px">Vegbals is a mobile app UI design that makes it easy for users to buy fresh vegetables straight from their phone. The interface is clean, modern, and intuitive for anyone to use.</p>
-        <p style="font-size:15px;color:var(--dim);line-height:1.85;margin-bottom:14px">Designed in <strong style="color:var(--body);font-weight:500">Figma</strong> with careful attention to visual hierarchy, color consistency, and intuitive user experience — every element is crafted so users instantly understand how to use it.</p>
-        <p style="font-size:15px;color:var(--dim);line-height:1.85">Built with a <strong style="color:var(--body);font-weight:500">Global Guidestyle</strong> that ensures all 30+ screens maintain a consistent look and feel from start to finish.</p>
+        <h2 class="feature-title">Vegbals — Vegetable Center App</h2>
+        <p class="feature-p">Vegbals is a mobile shopping app that helps users find and buy fresh vegetables with ease. Its clean interface is designed to feel clear, modern, and simple to navigate.</p>
+        <p class="feature-p">Designed in <strong>Figma</strong>, the app uses clear hierarchy, consistent color, and familiar interactions to guide users through every screen.</p>
+        <p class="feature-p">A shared <strong>style guide</strong> keeps the 30+ screens consistent and makes the system easy to expand.</p>
       </div>
       <div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px">What's inside</div>
-        <div style="display:flex;flex-direction:column">
-          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);border-top:1px solid var(--line)">
-            <div style="width:28px;height:28px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim);flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:11px">30+</div>
-            <div style="font-size:14px;color:var(--text)">Screens</div>
+        <div class="feature-list-label">What's inside</div>
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-item-icon">30+</div>
+            <div class="feature-item-text">Screens</div>
           </div>
-          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)">
-            <div style="width:28px;height:28px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim);flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:11px">40+</div>
-            <div style="font-size:14px;color:var(--text)">User App Screen</div>
+          <div class="feature-item">
+            <div class="feature-item-icon">40+</div>
+            <div class="feature-item-text">App screens</div>
           </div>
-          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)">
-            <div style="width:28px;height:28px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim);flex-shrink:0">
+          <div class="feature-item">
+            <div class="feature-item-icon">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
             </div>
-            <div style="font-size:14px;color:var(--text)">Global Guidestyle & Design System</div>
+            <div class="feature-item-text">Style guide and design system</div>
           </div>
-          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)">
-            <div style="width:28px;height:28px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim);flex-shrink:0">
+          <div class="feature-item">
+            <div class="feature-item-icon">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
             </div>
-            <div style="font-size:14px;color:var(--text)">Free Google Font & Fully Customizable</div>
+            <div class="feature-item-text">Free Google Fonts and customization</div>
           </div>
-          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)">
-            <div style="width:28px;height:28px;border:1px solid var(--muted);border-radius:4px;display:flex;align-items:center;justify-content:center;color:var(--dim);flex-shrink:0">
+          <div class="feature-item">
+            <div class="feature-item-icon">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
             </div>
-            <div style="font-size:14px;color:var(--text)">Compatible with Figma</div>
+            <div class="feature-item-text">Built for Figma</div>
           </div>
         </div>
       </div>
@@ -209,11 +223,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(9,9,9,.92);b
 
   <div class="desc-section">
     <div class="rv d1">
-      <div class="desc-label">About this projec t</div>
+      <div class="desc-label">About this project</div>
       <h2 class="desc-h2">A complete design system built in Figma</h2>
-      <p class="desc-p">A collection of <strong>reusable UI components</strong> built in Figma — buttons, cards, navbars, inputs, and more. All organized into a clean design system ready to use for any web project.</p>
-      <p class="desc-p">The goal was to build something <strong>consistent and scalable</strong>. Every component follows the same spacing, color, and typography rules so they all work together perfectly.</p>
-      <p class="desc-p">This project taught me the importance of <strong>design systems</strong> — how having a solid foundation of components makes building interfaces so much faster and more consistent.</p>
+      <p class="desc-p">A collection of <strong>reusable UI components</strong> built in Figma: buttons, cards, navbars, inputs, and more, organized for easy use in future web projects.</p>
+      <p class="desc-p">Each component follows the same spacing, color, and typography rules, creating a foundation that is both <strong>consistent and scalable</strong>.</p>
+      <p class="desc-p">The project shows how a strong <strong>design system</strong> can make interface work faster, clearer, and more consistent.</p>
     </div>
     <div class="rv d2">
       <div class="desc-label">Tools used</div>

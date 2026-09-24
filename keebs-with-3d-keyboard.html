@@ -59,8 +59,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;border-bottom:1px solid var(
   .hero-3d{height:300px}
 }
 @media(max-width:640px){
-  .hero-content{padding:40px 20px}
+  .nav-in{padding:0 20px}
+  .nav-links{display:none}
+  .hero-content{padding:40px 20px;gap:32px}
   .hero-h1{letter-spacing:-2px}
+  .hero-desc{font-size:14px}
+  .hero-stats{gap:24px;flex-wrap:wrap}
+  .hero-3d{height:min(78vw,300px)}
 }
 </style>
 </head>
@@ -126,16 +131,26 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;border-bottom:1px solid var(
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 const c = document.getElementById('kbCanvas');
-const cw = c.parentElement.offsetWidth;
-const ch = c.parentElement.offsetHeight;
-c.width = cw; c.height = ch;
+function resizeCanvas() {
+  const box = c.parentElement.getBoundingClientRect();
+  const cw = Math.max(1, Math.floor(box.width));
+  const ch = Math.max(1, Math.floor(box.height));
+  c.width = cw * window.devicePixelRatio;
+  c.height = ch * window.devicePixelRatio;
+  c.style.width = cw + 'px';
+  c.style.height = ch + 'px';
+  return {cw, ch};
+}
+
+let {cw, ch} = resizeCanvas();
 
 const s = new THREE.Scene();
 s.background = null;
 const cam = new THREE.PerspectiveCamera(50, cw/ch, 0.1, 100);
 cam.position.set(0, 1.5, 4);
 const ren = new THREE.WebGLRenderer({canvas:c, antialias:true, alpha:true});
-ren.setSize(cw, ch);
+ren.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+ren.setSize(cw, ch, false);
 
 s.add(new THREE.AmbientLight(0xffffff, 0.7));
 const dl = new THREE.DirectionalLight(0xffffff, 0.8);
@@ -178,6 +193,12 @@ function ani() {
   ren.render(s, cam);
 }
 ani();
+window.addEventListener('resize', function(){
+  const size = resizeCanvas();
+  cam.aspect = size.cw / size.ch;
+  cam.updateProjectionMatrix();
+  ren.setSize(size.cw, size.ch, false);
+});
 </script>
 </body>
 </html>

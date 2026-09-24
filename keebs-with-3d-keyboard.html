@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+img,video,canvas{max-width:100%}
 html{scroll-behavior:smooth}
 :root{
   --bg:#0a0a0a;
@@ -27,7 +28,7 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--sub)}
 nav{position:fixed;top:0;left:0;right:0;z-index:300;border-bottom:1px solid var(--line);background:rgba(10,10,10,.92);backdrop-filter:blur(20px)}
-.nav-in{max-width:1200px;margin:0 auto;padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.nav-in{max-width:1200px;margin:0 auto;padding:0 clamp(20px,3.5vw,40px);height:60px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .logo{font-family:'Space Mono',monospace;font-size:20px;font-weight:700;color:var(--white);text-decoration:none;letter-spacing:-.5px;display:flex;align-items:center;gap:2px}
 .logo span{color:var(--accent)}
 .nav-links{display:flex;gap:4px}
@@ -42,7 +43,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:300;border-bottom:1px solid var(
 .hero-bg{position:absolute;inset:0;z-index:0}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:60px 60px;opacity:.4}
 .hero-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(240,240,240,.05) 0%,transparent 70%);pointer-events:none}
-.hero-content{position:relative;z-index:1;max-width:1200px;margin:0 auto;width:100%;padding:80px 40px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-content{position:relative;z-index:1;max-width:1200px;margin:0 auto;width:100%;padding:clamp(56px,7vw,80px) clamp(20px,3.5vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,60px);align-items:center}
 .hero-kicker{font-family:'Space Mono',monospace;font-size:11px;color:var(--white);letter-spacing:.15em;text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:10px}
 .hero-kicker::before{content:'';width:24px;height:1px;background:var(--white)}
 .hero-h1{font-size:clamp(56px,8vw,120px);font-weight:700;letter-spacing:-4px;line-height:.9;color:var(--white);margin-bottom:32px}
